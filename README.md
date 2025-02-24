@@ -1,36 +1,45 @@
-# Data Engineering Coding Challenges
+# Data Engineering Challenge (Complete Version)
 
-## Judgment Criteria
+## Setup Instructions
 
-- Beauty of the code (beauty lies in the eyes of the beholder)
-- Testing strategies
-- Basic Engineering principles
+### 1. Clone the Repository
+```sh
+git clone <your-repository-url>
+cd data-engineering-project
+```
 
-## Problem 1
+### 2. Set Up Virtual Environment & Install Dependencies
+```sh
+python -m venv venv
+source venv/bin/activate  # On Windows use venv\Scripts\activate
+pip install -r app/requirements.txt
+```
 
-### Parse fixed width file
+### 3. Run Fixed Width File Scripts
+```sh
+python app/generate_fixed_width.py
+python app/parse_fixed_width.py
+```
 
-- Generate a fixed width file using the provided spec (offset provided in the spec file represent the length of each field).
-- Implement a parser that can parse the fixed width file and generate a delimited file, like CSV for example.
-- DO NOT use python libraries like pandas for parsing. You can use the standard library to write out a csv file (If you feel like)
-- Language choices (Python or Scala)
-- Deliver source via github or bitbucket
-- Bonus points if you deliver a docker container (Dockerfile) that can be used to run the code (too lazy to install stuff that you might use)
-- Pay attention to encoding
+### 4. Run CSV Anonymization (Streaming for 2GB+ Files)
+```sh
+python app/anonymize_csv.py
+```
 
-## Problem 2
+### 5. Run Tests
+```sh
+python -m unittest discover -s app -p "test_*.py"
+```
 
-### Data processing
+### 6. Run in Docker
+```sh
+docker build -t data-engineering .
+docker run --rm -v $(pwd):/app data-engineering
+```
 
-- Generate a csv file containing first_name, last_name, address, date_of_birth
-- Process the csv file to anonymise the data
-- Columns to anonymise are first_name, last_name and address
-- You might be thinking  that is silly
-- Now make this work on 2GB csv file (should be doable on a laptop)
-- Demonstrate that the same can work on bigger dataset
-- Hint - You would need some distributed computing platform
-
-## Choices
-
-- Any language, any platform
-- One of the above problems or both, if you feel like it.
+### 7. Troubleshooting
+- **Ensure you have Docker installed before running Docker commands.**
+- **If running tests, execute from the root directory:**
+  ```sh
+  python -m unittest discover -s app -p "test_*.py"
+  ```
